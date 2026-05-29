@@ -12,29 +12,37 @@
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 #define read(x) int x; cin >> x
 using namespace std;
- 
+
 void init_code() {
     fast_io;
     #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
-    #endif 
+    #endif
 }
-//principle of Inclusion-Exclusion:-
-//ans = total- no.of 2*3 recentgles
+
+ll helper(ll a, ll b){
+    if(a%2==1 && b%2==1){
+        return a*b+1;
+    }
+    if(a%2==1){
+        return helper(2*a,b/2);
+    }
+    if(b%2==1){
+        return -1;
+    }
+    return (a*(b/2))+2;
+}
 
 int main() {
-   init_code();
-   int t;
-   cin >> t;
-   for(int i=1;i<=t;i++){
-      long long temp=i*i;
-      long long ans=temp*(temp-1)/2;
-      ans-=4*(i-1)*(i-2);
-      cout<<ans<<endl;
-   }
-   return 0;
+    int t;
+    cin>>t;
+    while (t--) {
         
-        
+    }
+
+
+    return 0;
+
 
 }

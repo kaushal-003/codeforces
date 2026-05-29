@@ -55,49 +55,52 @@ ll binarySearch(ll low, ll high, ll x)
     return -1;
 }
 
-int upper_bound(vector<int>&tickets,vector<int>&arr,int k){
+int upper_bound(vector<int>&tickets,int k){
    int low =0;
    int high = tickets.size()-1;
-   int ans =0;
+   int ans =high+1;
    while(low<=high){
       int mid = (low+high)/2;
       if(tickets[mid]<=k){
-         ans = mid;
          low=mid+1;
       }
       else{
+         ans = mid;
          high = mid-1;
       }
-   }
-   while(ans >=0 && arr[ans]==1){
-      ans--;
    }
    return ans;
 }
 
 int main() {
-   int n,m;
-   cin>>n>>m;
-   map<int,int>mpp;
-   fr(0,n){
-      int a;cin>>a;
-      mpp[a]++;
-   }
-   vector<int>t(m);
-   fr(0,m)cin>>t[i];
-   for(auto it:t){
-      if(mpp.upper_bound(it)==mpp.begin()){
-         cout<<-1<<endl;
-         continue;
+   int n;
+   cin>>n;
+   vector<int>arr(n);
+   fr(0,n)cin>>arr[i];
+   set<int>s;
+   int i = 0;
+   int j = 0;
+   int ans = 0;
+   while(i<n && j<n){
+      if(s.find(arr[i])==s.end()){
+         s.insert(arr[i]);
+         if(ans<s.size())ans = s.size();
+         i++;
       }
-      auto itr = mpp.upper_bound(it);
-      itr--;
-      auto ticket = itr->first;
-      cout<<ticket<<endl;
-      mpp[ticket]--;
-      if(mpp[ticket]==0){
-         mpp.erase(ticket);
+      else{
+         // cout<<"found "<<i<<" "<<j<< endl;
+         while(arr[j]!=arr[i]){
+            s.erase(arr[j]);
+            j++;
+         }
+         // s.erase(arr[j]);
+         j++;
+         i++;
       }
+      // cout<<i<<j<<endl;
    }
+   if(ans<s.size())ans = s.size();
+   cout<<ans<<endl;
+
    return 0;
-   }
+}
